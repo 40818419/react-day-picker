@@ -106,6 +106,7 @@
   },
   "dependencies": {
     "object-assign": "^4.1.1",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "react-touch-events": "^2.1.0"
   }
 }

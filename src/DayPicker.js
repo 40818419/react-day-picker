@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTouchEvents from "react-touch-events";
 
 import Caption from './Caption';
 import Navbar from './Navbar';
@@ -366,6 +367,19 @@ export default class DayPicker extends Component {
     }
   };
 
+  handleSwipe = direction => {
+    switch (direction) {
+      case 'left':
+        this.showNextMonth();
+        break;
+      case 'right':
+        this.showPreviousMonth();
+        break;
+      default:
+        break;
+    }
+  };
+
   handleDayKeyDown = (day, modifiers, e) => {
     e.persist();
     switch (e.keyCode) {
@@ -515,16 +529,18 @@ export default class DayPicker extends Component {
         role="application"
         lang={this.props.locale}
       >
-        <div
-          className={this.props.classNames.wrapper}
-          tabIndex={this.props.canChangeMonth && this.props.tabIndex}
-          onKeyDown={this.handleKeyDown}
-          onFocus={this.props.onFocus}
-          onBlur={this.props.onBlur}
-        >
-          {this.renderNavbar()}
-          {this.renderMonths()}
-        </div>
+        <ReactTouchEvents onSwipe={this.handleSwipe}>
+          <div
+            className={this.props.classNames.wrapper}
+            tabIndex={this.props.canChangeMonth && this.props.tabIndex}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.props.onFocus}
+            onBlur={this.props.onBlur}
+          >
+            {this.renderNavbar()}
+            {this.renderMonths()}
+          </div>
+        </ReactTouchEvents>
       </div>
     );
   }
